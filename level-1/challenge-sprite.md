@@ -1,7 +1,7 @@
 # Draw sprite
 
 4000-403F - sprite data
-4050 - code
+4040 - code
 
 A - current color
 BC - next line start offset (800 - 8 = 0x07FC)
