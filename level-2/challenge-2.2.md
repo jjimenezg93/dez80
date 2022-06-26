@@ -7,6 +7,9 @@ HL - color
 DE - color offset address (88, 44, 22, 11) from which to load into A
 IX - current print position (to be swapped with the SP)
 
+4000-4003 - offsets
+4004 - code start
+
 Trick to always reset carry bit before depending on it (e.g. when using RR)
 37 + 3F - SCF + CCF - set carry flag bit + invert
 
