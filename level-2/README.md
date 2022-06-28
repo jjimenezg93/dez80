@@ -21,3 +21,11 @@
 ## 2.2.3 Bouncing ball
 
 ![bouncing-ball](./bouncing-ball.gif)
+
+## 2.3.1 Single floor tile
+
+![single-floor-tile](./single-floor-tile.jpg)
+
+## 2.3.2 Tiled floor
+
+![tiled-floor](./tiled-floor.jpg)
