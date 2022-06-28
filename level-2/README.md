@@ -29,3 +29,7 @@
 ## 2.3.2 Tiled floor
 
 ![tiled-floor](./tiled-floor.jpg)
+
+## 2.3.3 Tiled roof
+
+![tiled-roof](./tiled-roof.jpg)
