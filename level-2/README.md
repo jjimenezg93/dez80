@@ -2,34 +2,34 @@
 
 ## 2.1.1 Progress bar
 
-![progress-bar](./progress-bar.gif)
+![progress-bar](./resources/progress-bar.gif)
 
 ## 2.1.2 8x8 animation
 
-![8x8-animation-static](./simple-explosion-animation.png)
+![8x8-animation-static](./resources/simple-explosion-animation.png)
 
-![8x8-animation](./8x8-animation.gif)
+![8x8-animation](./resources/8x8-animation.gif)
 
 ## 2.2.1 Bullet
 
-![bullet](./bullet.gif)
+![bullet](./resources/bullet.gif)
 
 ## 2.2.2 Press trap
 
-![press-trap](./press-trap.gif)
+![press-trap](./resources/press-trap.gif)
 
 ## 2.2.3 Bouncing ball
 
-![bouncing-ball](./bouncing-ball.gif)
+![bouncing-ball](./resources/bouncing-ball.gif)
 
 ## 2.3.1 Single floor tile
 
-![single-floor-tile](./single-floor-tile.jpg)
+![single-floor-tile](./resources/single-floor-tile.jpg)
 
 ## 2.3.2 Tiled floor
 
-![tiled-floor](./tiled-floor.jpg)
+![tiled-floor](./resources/tiled-floor.jpg)
 
 ## 2.3.3 Tiled roof
 
-![tiled-roof](./tiled-roof.jpg)
+![tiled-roof](./resources/tiled-roof.jpg)
