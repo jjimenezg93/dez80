@@ -33,3 +33,7 @@
 ## 2.3.3 Tiled roof
 
 ![tiled-roof](./resources/tiled-roof.jpg)
+
+## 2.3.4 Shooting turret
+
+![shooting-turret](./resources/shooting-turret.gif)
