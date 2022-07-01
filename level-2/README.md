@@ -37,3 +37,7 @@
 ## 2.3.4 Shooting turret
 
 ![shooting-turret](./resources/shooting-turret.gif)
+
+## 2.4.1 Multi-tile floor
+
+![multi-tile-floor](./resources/multi-tile-floor.jpg)
