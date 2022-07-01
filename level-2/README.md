@@ -45,3 +45,7 @@
 ## 2.4.2 Static enemies
 
 ![static-enemies](./resources/static-enemies.jpg)
+
+## 2.4.3 Moving enemies
+
+![moving-enemies](./resources/moving-enemies.gif)
