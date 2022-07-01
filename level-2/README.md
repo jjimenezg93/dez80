@@ -41,3 +41,7 @@
 ## 2.4.1 Multi-tile floor
 
 ![multi-tile-floor](./resources/multi-tile-floor.jpg)
+
+## 2.4.2 Static enemies
+
+![static-enemies](./resources/static-enemies.jpg)
