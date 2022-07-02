@@ -5,3 +5,7 @@
 # 3.1.2 Mining cart
 
 ![mining-cart](./resources/mining-cart.jpg)
+
+# 3.1.3 Floor
+
+![floor](./resources/floor.jpg)
