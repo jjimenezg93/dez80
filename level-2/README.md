@@ -49,3 +49,7 @@
 ## 2.4.3 Moving enemies
 
 ![moving-enemies](./resources/moving-enemies.gif)
+
+## Final animation
+
+![final-animation](./resources/final-animation.gif)
