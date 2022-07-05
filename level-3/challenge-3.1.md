@@ -1,5 +1,6 @@
 # 4 pixels
 
+```asm
 org #4000
 run #4000
 
@@ -8,9 +9,11 @@ ld   HL, #C000
 ld (HL), A
 
 jr $
+```
 
 # Mining cart
 
+```asm
 org #4000
 run #4000
 
@@ -57,9 +60,11 @@ dec     HL
 ld      (HL), #04
 
 jr $
+```
 
 # Floor
 
+```asm
 org #4000
 run #4000
 
@@ -85,3 +90,4 @@ ld      (HL), #C3
 add     HL, BC
 ld      (HL), #FF
 ret
+```
