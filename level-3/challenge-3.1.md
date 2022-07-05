@@ -1,5 +1,8 @@
 # 4 pixels
 
+org #4000
+run #4000
+
 ld   A , #FF
 ld   HL, #C000
 ld (HL), A
@@ -7,6 +10,9 @@ ld (HL), A
 jr $
 
 # Mining cart
+
+org #4000
+run #4000
 
 ld      HL, #C410
 ld      BC, #0800
@@ -53,6 +59,9 @@ ld      (HL), #04
 jr $
 
 # Floor
+
+org #4000
+run #4000
 
 ld      HL, #C460
 ld      BC, #0800
