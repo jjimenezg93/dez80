@@ -13,3 +13,7 @@
 # 3.2.1 Moving cart
 
 ![moving-cart](./resources/moving-cart.gif)
+
+# 3.2.2 Moving cart with key
+
+![moving-cart-with-key](./resources/moving-cart-with-key.gif)
