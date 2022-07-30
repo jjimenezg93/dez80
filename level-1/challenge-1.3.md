@@ -6,12 +6,19 @@
 
 # Single pixel
 
+
 4000 - 0xC000 - first pixel
+
 4002 - 0x0800 - offset for 1 pixel below
+
 4004 - 0x0050 - offset for 1 character below (1 character = 8x8 pixels)
+
 4006 - 0xXX - character row
+
 4007 - 0xXX - character column
+
 4008 - 0xXX - num of vertical pixels
+
 4040 - code
 
 Using 2 bytes for 0x50 for 16-bit ADD and LD operations

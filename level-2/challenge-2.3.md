@@ -2,7 +2,9 @@
 
 Can only draw with:
 
-36 XX - ld (HL), XX
+```
+36 XX == ld (HL), XX
+```
 
 ## Single floor tile
 
@@ -26,45 +28,46 @@ Height must be 16 pixels, including the space for the character later on.
 
 Moving a cyan bullet means rotating through the 4 low order bits of each Byte, since the 4 high order bits must always be 0. Instead of convoluted jumping logic, this does the trick:
 
-(HL)    - 0000 0011
-(HL+1)  - 0000 0000
-A       - 0000 0000
+```asm
+;; starting values
+;; (HL)    - 0000 0011
+;; (HL+1)  - 0000 0000
+;; A       - 0000 0000
 
 RRD
-A       <- 0000 0011
-(HL)    <- 0000 0000
+;; A       <- 0000 0011
+;; (HL)    <- 0000 0000
 
-SCF
-CY      <- 1
-
-CCF
-CY      <- 0 ; !CY
+;; Reset CY
+SCF ;; CY  <- 1
+CCF ;; CY  <- 0
 
 RRA
-A       <- 0000 0001
-CY      <- 1
+;; A       <- 0000 0001
+;; CY      <- 1
 
 RLD
-A       <- 0000 0000
-(HL)    <- 0000 0001
+;; A       <- 0000 0000
+;; (HL)    <- 0000 0001
 
 RRA
-A       <- 1000 0000
+;; A       <- 1000 0000
 
 RRA
-A       <- 0100 0000
+;; A       <- 0100 0000
 
 RRA
-A       <- 0010 0000
+;; A       <- 0010 0000
 
 RRA
-A       <- 0001 0000
+;; A       <- 0001 0000
 
 RRA
-A       <- 0000 1000
+;; A       <- 0000 1000
 
 INC L
-HL      <- HL+1
+;; HL      <- HL+1
 
 LD (HL), A
-(HL+1)  <- 0000 1000
+;; (HL+1)  <- 0000 1000
+```

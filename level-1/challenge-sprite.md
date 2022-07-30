@@ -1,22 +1,31 @@
 # Draw sprite
 
 4000-403F - sprite data
+
 4040 - code
 
 A - current color
+
 BC - next line start offset (800 - 8 = 0x07FC)
-    | vMem overflow offset (-0x4000 = C000)
+
 DE - color pos
+
 IX - vMem pos
+
 H - height counter
+
 L - width counter
 
 00 07 0E 00 00 08 01 00 01 06 00 08 02 08 00 04 02 00 00 04 02 08 00 04 02 00 00 04 02 00 00 04 02 00 07 04 02 30 07 04 02 40 83 04 13 FF FF 8C 54 BA D5 A2 FF FF FF FF 11 FF FF 88 03 00 00 0C DD 21 98 C3 01 FC 07 11 00 40 21 00 C0 26 10 2E 04 1A 13 DD 77 00 DD 23 2D 20 F6 DD 09 38 05 25 20 ED 18 FE 01 50 C0 DD 09 01 FC 07 18 F1
 
 ## Sprite data
 
+raw:
+
 00 07 0E 00 00 08 01 00 01 06 00 08 02 08 00 04 02 00 00 04 02 08 00 04 02 00 00 04 02 00 00 04 02 00 07 04 02 30 07 04 02 40 83 04 13 FF FF 8C 54 BA D5 A2 FF FF FF FF 11 FF FF 88 03 00 00 0C
 
+(easier to view):
+```
 00 07 0E 00
 00 08 01 00
 01 06 00 08
@@ -33,3 +42,4 @@ L - width counter
 FF FF FF FF
 11 FF FF 88
 03 00 00 0C
+```
