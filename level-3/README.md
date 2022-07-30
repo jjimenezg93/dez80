@@ -17,3 +17,7 @@
 # 3.2.2 Moving cart with key
 
 ![moving-cart-with-key](./resources/moving-cart-with-key.gif)
+
+# 3.2.3 Moving cart with key (+ reset)
+
+![moving-cart-with-key-reset](./resources/moving-cart-with-key-reset.gif)
