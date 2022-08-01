@@ -21,3 +21,7 @@
 # 3.2.3 Moving cart with key (+ reset)
 
 ![moving-cart-with-key-reset](./resources/moving-cart-with-key-reset.gif)
+
+# 3.3.1 Barrel
+
+![barrel](./resources/barrel.jpg)
