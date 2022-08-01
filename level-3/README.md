@@ -25,3 +25,7 @@
 # 3.3.1 Barrel
 
 ![barrel](./resources/barrel.jpg)
+
+# 3.3.2 Barrel repeat
+
+![barrel-repeat](./resources/barrel-repeat.jpg)
