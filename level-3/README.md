@@ -29,3 +29,7 @@
 # 3.3.2 Barrel repeat
 
 ![barrel-repeat](./resources/barrel-repeat.jpg)
+
+# 3.3.3 Stop with space
+
+![stop-with-space](./resources/stop-with-space.gif)
