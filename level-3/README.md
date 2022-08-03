@@ -41,3 +41,7 @@
 # 3.4.1 Move right with key
 
 ![move-right-with-key](./resources/move-right-with-key.gif)
+
+# 3.4.2 Move with keys
+
+![move-with-keys](./resources/move-with-keys.gif)
