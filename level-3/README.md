@@ -37,3 +37,7 @@
 # 3.3.4 Stop with space + explosion
 
 ![stop-with-space-explosion](./resources/stop-with-space-explosion.gif)
+
+# 3.4.1 Move right with key
+
+![move-right-with-key](./resources/move-right-with-key.gif)
