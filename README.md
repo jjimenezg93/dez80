@@ -8,7 +8,7 @@ This repository holds the code for all of the challenges of the [DEZ80][dez80] c
 
 All of the code in this repository has been tested in [WinAPE](http://www.winape.net/) using the `CPC 464 with ParaDOS` preset.
 
-For levels 1 and 2:
+## Levels 1 and 2
 
 - Copy the machine code that you want to test.
 - Open the debugger window of WinApe.
@@ -16,12 +16,13 @@ For levels 1 and 2:
 - Change the value of the PC to the position where the code starts. By default this will be where you pasted the code in the previous step, but some programs store data at the beginning so their code will start in a higher position. The comments in each section (or a lot of `0`s in the middle of the machine code) should make it clear if this is the case.
 - Close the debugger window and the program will execute.
 
-For level 3:
+## Level 3
+
 - Open the assembler window.
 - Open the `.asm` file.
 - Assemble and run (`Assemble > Run` or `F9`).
 
-**NOTE**: Some of these machine code programs assume that executable instructions start at position `0x4000` and reference memory positions directly based on this assumption (e.g. to store data). This is for the sake of simplicity or complying with constraints for that specific challenge.
+**NOTE**: Some of these machine code programs assume that executable instructions start at position `0x4000` and reference memory positions directly based on this assumption (e.g. to store data). This is for the sake of simplicity or complying with constraints for that specific challenge (e.g. use specific instruction).
 
 # Links
 
