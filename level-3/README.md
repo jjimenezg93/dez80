@@ -33,3 +33,7 @@
 # 3.3.3 Stop with space
 
 ![stop-with-space](./resources/stop-with-space.gif)
+
+# 3.3.4 Stop with space + explosion
+
+![stop-with-space-explosion](./resources/stop-with-space-explosion.gif)
