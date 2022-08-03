@@ -45,3 +45,7 @@
 # 3.4.2 Move with keys
 
 ![move-with-keys](./resources/move-with-keys.gif)
+
+# 3.4.3 Move with keys + screen limits
+
+![move-with-keys-screen-limits](./resources/move-with-keys-screen-limits.gif)
