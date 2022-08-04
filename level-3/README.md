@@ -49,3 +49,7 @@
 # 3.4.3 Move with keys + screen limits
 
 ![move-with-keys-screen-limits](./resources/move-with-keys-screen-limits.gif)
+
+# 3.4.4 Move with keys + barrel collision
+
+![move-with-keys-barrel-collision](./resources/move-with-keys-barrel-collision.gif)
