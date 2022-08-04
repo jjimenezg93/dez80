@@ -334,5 +334,5 @@ draw_explosion:
     ld      A, 10
     call    animation_wait
 
-    call    clear_sprite    ;; Leave blank after the explotion
+    call    clear_sprite    ;; Leave blank after the explosion
     ret
