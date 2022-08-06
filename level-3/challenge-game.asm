@@ -7,6 +7,7 @@ fire_animation_ticks            equ     15
 animation_ticks                 equ     5
 left_wall_position              equ     #C3C0
 right_wall_position             equ     left_wall_position + #50
+prev_char_offset_v              equ     -#50
 next_pixel_offset_v             equ     #0800
 starting_position               equ     #C3E8       ;; Screen center
 
@@ -21,6 +22,7 @@ barrels_active:                 dw      #0001, #0001, #0001, #0001  ;; dw so tha
 barrels_arrays_offset:          dw      barrels_active - barrels_array
 current_player_position:        dw      starting_position
 current_barrel_ptr:             dw      barrels_array
+barrels_destroyed:              dw      0
 
 code_start:
 ld      HL, right_wall_position
@@ -48,18 +50,18 @@ main_loop:
     call    handle_collisions
     ld      A, (is_game_over)
     and     A
-    jr      NZ, game_over
+    jr      NZ, game_over_loop
     ld      HL, (current_player_position)
     call    draw_character
     ld      A, move_animation_ticks
     call    wait_animation
     jr      main_loop
 
-game_over:
+game_over_loop:
     ld      A, (reset_game_key)
     call    test_key
     jr      NZ, reset_game
-    jr      game_over
+    jr      game_over_loop
 
 reset_game:
     push    AF
@@ -86,6 +88,7 @@ reset_game:
 
     ld      A, 0
     ld      (is_game_over), A
+    ld      (barrels_destroyed), A
 
     pop     HL
     pop     AF
@@ -263,6 +266,15 @@ inc_current_barrel_ptr:
     pop     HL
     ret
 
+dec_current_barrel_ptr:
+    push    HL
+    ld      HL, (current_barrel_ptr)
+    dec     HL
+    dec     HL
+    ld      (current_barrel_ptr), HL
+    pop     HL
+    ret
+
 handle_barrel_collision:
     push    HL
     push    BC
@@ -299,12 +311,46 @@ handle_barrel_collision:
 
 destroy_barrel_left:
     push    HL
+    push    DE
 
-    ld      HL, (current_player_position)
+    call    reset_current_barrel_ptr
+    call    inc_current_barrel_ptr      ;; 2nd barrel is first to the left if active
 
-
-    pop     HL
-    ret
+    ld      DE, (barrels_arrays_offset)
+    ld      HL, (current_barrel_ptr)
+    add     HL, DE                      ;; Add the offset. HL now pointing to
+                                        ;; active state of current barrel
+    ld      A, (HL)
+    and     A
+    jr      NZ, second_barrel_active
+    dec     HL
+    dec     HL                          ;; Active states are dw too due to offset
+    ld      A, (HL)
+    and     A
+    jr      Z, destroy_barrel_left_end  ;; If first is also inactive, end
+    call    dec_current_barrel_ptr      ;; Else, point to the first barrel
+    second_barrel_active:
+        call    current_barrel_ptr_get
+        ex      HL, DE
+        ld      HL, (current_player_position)
+        ld      A, weapon_range
+        ;; Check if the barrel is within weapon range and destroy it if so
+        destroy_barrel_left_loop:
+            call    reset_carry_flag
+            push    HL
+            sbc     HL, DE
+            pop     HL
+            push    AF
+            call    Z, destroy_barrel_entity
+            pop    AF
+            jr      Z, destroy_barrel_left_end
+            dec     HL
+            dec     A
+            jr      NZ, destroy_barrel_left_loop
+    destroy_barrel_left_end:
+        pop     DE
+        pop     HL
+        ret
 
 destroy_barrel_right:
     push    HL
@@ -367,19 +413,31 @@ destroy_barrel_entity:
     ld      A, 0
     ld      (HL), A
 
+    ld      HL, barrels_destroyed
+    inc     (HL)
+
+    ;; Were all barrels destroyed?
+    ld      A, (HL)
+    sub     4
+    jr      Z, win_game
+
     pop     HL
     pop     DE
     pop     AF
     ret
 
-get_first_barrel_right:
-    push    HL
-
-    ld      HL, barrels_active + 2
-
-
+win_game:
     pop     HL
-    ret
+    pop     DE
+    pop     AF
+    ld      HL, is_game_over
+    ld      (HL), 1
+
+    ld      HL, (current_player_position)
+    ld      DE, prev_char_offset_v
+    add     HL, DE
+    call    play_win_animation
+    jp      game_over_loop
 
 ;; HL - (in) draw position
 play_explosion_animation:
@@ -825,6 +883,149 @@ play_right_fire_animation:
 
     pop     HL
     call    clear_4x8_sprite
+    pop     BC
+    pop     AF
+    ret
+
+play_win_animation:
+    push    AF
+    push    BC
+    push    HL
+
+    ld      BC, next_pixel_offset_v
+
+    ld      (HL), #8A
+    inc     HL
+    ld      (HL), #09
+
+    add     HL, BC
+    ld      (HL), #45
+    dec     HL
+    ld      (HL), #99
+
+    add     HL, BC
+    ld      (HL), #B5
+    inc     HL
+    ld      (HL), #99
+
+    add     HL, BC
+    ld      (HL), #59
+    dec     HL
+    ld      (HL), #30
+
+    add     HL, BC
+    ld      (HL), #6C
+    inc     HL
+    ld      (HL), #59
+
+    add     HL, BC
+    ld      (HL), #06
+    dec     HL
+    ld      (HL), #A5
+
+    add     HL, BC
+    ld      (HL), #8D
+    inc     HL
+    ld      (HL), #F2
+
+    add     HL, BC
+    ld      (HL), #98
+    dec     HL
+    ld      (HL), #AF
+
+    pop     HL
+    push    HL
+    ld      A, fire_animation_ticks * 10
+    call    wait_animation
+
+    ld      (HL), #C3
+    inc     HL
+    ld      (HL), #0C
+
+    add     HL, BC
+    ld      (HL), #7B
+    dec     HL
+    ld      (HL), #C9
+
+    add     HL, BC
+    ld      (HL), #4A
+    inc     HL
+    ld      (HL), #AE
+
+    add     HL, BC
+    ld      (HL), #31
+    dec     HL
+    ld      (HL), #DD
+
+    add     HL, BC
+    ld      (HL), #78
+    inc     HL
+    ld      (HL), #DD
+
+    add     HL, BC
+    ld      (HL), #2A
+    dec     HL
+    ld      (HL), #B7
+
+    add     HL, BC
+    ld      (HL), #34
+    inc     HL
+    ld      (HL), #51
+
+    add     HL, BC
+    ld      (HL), #65
+    dec     HL
+    ld      (HL), #A5
+
+    pop     HL
+    push    HL
+    ld      A, fire_animation_ticks * 10
+    call    wait_animation
+
+    ld      (HL), #7F
+    inc     HL
+    ld      (HL), #9A
+
+    add     HL, BC
+    ld      (HL), #60
+    dec     HL
+    ld      (HL), #9F
+
+    add     HL, BC
+    ld      (HL), #2B
+    inc     HL
+    ld      (HL), #03
+
+    add     HL, BC
+    ld      (HL), #3A
+    dec     HL
+    ld      (HL), #E3
+
+    add     HL, BC
+    ld      (HL), #B3
+    inc     HL
+    ld      (HL), #CA
+
+    add     HL, BC
+    ld      (HL), #59
+    dec     HL
+    ld      (HL), #EB
+
+    add     HL, BC
+    ld      (HL), #55
+    inc     HL
+    ld      (HL), #C0
+
+    add     HL, BC
+    ld      (HL), #A9
+    dec     HL
+    ld      (HL), #97
+
+    ld      A, fire_animation_ticks * 10
+    call    wait_animation
+
+    pop     HL
+    call    clear_8x8_sprite
     pop     BC
     pop     AF
     ret
