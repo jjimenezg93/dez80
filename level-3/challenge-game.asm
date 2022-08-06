@@ -894,134 +894,134 @@ play_win_animation:
 
     ld      BC, next_pixel_offset_v
 
-    ld      (HL), #8A
+    ld      (HL), #00
     inc     HL
-    ld      (HL), #09
+    ld      (HL), #00
 
     add     HL, BC
-    ld      (HL), #45
+    ld      (HL), #00
     dec     HL
-    ld      (HL), #99
+    ld      (HL), #00
 
     add     HL, BC
-    ld      (HL), #B5
+    ld      (HL), #82
     inc     HL
-    ld      (HL), #99
+    ld      (HL), #42
 
     add     HL, BC
-    ld      (HL), #59
-    dec     HL
-    ld      (HL), #30
-
-    add     HL, BC
-    ld      (HL), #6C
-    inc     HL
-    ld      (HL), #59
-
-    add     HL, BC
-    ld      (HL), #06
+    ld      (HL), #5A
     dec     HL
     ld      (HL), #A5
-
-    add     HL, BC
-    ld      (HL), #8D
-    inc     HL
-    ld      (HL), #F2
-
-    add     HL, BC
-    ld      (HL), #98
-    dec     HL
-    ld      (HL), #AF
-
-    pop     HL
-    push    HL
-    ld      A, fire_animation_ticks * 10
-    call    wait_animation
-
-    ld      (HL), #C3
-    inc     HL
-    ld      (HL), #0C
-
-    add     HL, BC
-    ld      (HL), #7B
-    dec     HL
-    ld      (HL), #C9
-
-    add     HL, BC
-    ld      (HL), #4A
-    inc     HL
-    ld      (HL), #AE
 
     add     HL, BC
     ld      (HL), #31
-    dec     HL
-    ld      (HL), #DD
-
-    add     HL, BC
-    ld      (HL), #78
     inc     HL
-    ld      (HL), #DD
+    ld      (HL), #68
 
     add     HL, BC
-    ld      (HL), #2A
+    ld      (HL), #A0
     dec     HL
-    ld      (HL), #B7
+    ld      (HL), #50
 
     add     HL, BC
-    ld      (HL), #34
+    ld      (HL), #33
     inc     HL
-    ld      (HL), #51
+    ld      (HL), #CC
 
     add     HL, BC
-    ld      (HL), #65
+    ld      (HL), #CC
     dec     HL
-    ld      (HL), #A5
+    ld      (HL), #33
 
     pop     HL
     push    HL
-    ld      A, fire_animation_ticks * 10
+    ld      A, fire_animation_ticks * 5
     call    wait_animation
 
-    ld      (HL), #7F
+    ld      (HL), #82
     inc     HL
-    ld      (HL), #9A
+    ld      (HL), #81
 
     add     HL, BC
-    ld      (HL), #60
+    ld      (HL), #C3
     dec     HL
-    ld      (HL), #9F
+    ld      (HL), #52
 
     add     HL, BC
-    ld      (HL), #2B
+    ld      (HL), #82
     inc     HL
-    ld      (HL), #03
+    ld      (HL), #42
 
     add     HL, BC
-    ld      (HL), #3A
+    ld      (HL), #83
     dec     HL
-    ld      (HL), #E3
+    ld      (HL), #6A
 
     add     HL, BC
-    ld      (HL), #B3
+    ld      (HL), #E5
     inc     HL
-    ld      (HL), #CA
+    ld      (HL), #D8
 
     add     HL, BC
-    ld      (HL), #59
+    ld      (HL), #A0
     dec     HL
-    ld      (HL), #EB
+    ld      (HL), #50
 
     add     HL, BC
-    ld      (HL), #55
+    ld      (HL), #33
     inc     HL
-    ld      (HL), #C0
+    ld      (HL), #CC
 
     add     HL, BC
-    ld      (HL), #A9
+    ld      (HL), #CC
     dec     HL
-    ld      (HL), #97
+    ld      (HL), #33
 
-    ld      A, fire_animation_ticks * 10
+    pop     HL
+    push    HL
+    ld      A, fire_animation_ticks * 5
+    call    wait_animation
+
+    ld      (HL), #53
+    inc     HL
+    ld      (HL), #21
+
+    add     HL, BC
+    ld      (HL), #41
+    dec     HL
+    ld      (HL), #84
+
+    add     HL, BC
+    ld      (HL), #82
+    inc     HL
+    ld      (HL), #42
+
+    add     HL, BC
+    ld      (HL), #5A
+    dec     HL
+    ld      (HL), #A5
+
+    add     HL, BC
+    ld      (HL), #31
+    inc     HL
+    ld      (HL), #68
+
+    add     HL, BC
+    ld      (HL), #A0
+    dec     HL
+    ld      (HL), #50
+
+    add     HL, BC
+    ld      (HL), #33
+    inc     HL
+    ld      (HL), #CC
+
+    add     HL, BC
+    ld      (HL), #CC
+    dec     HL
+    ld      (HL), #33
+
+    ld      A, fire_animation_ticks * 5
     call    wait_animation
 
     pop     HL
