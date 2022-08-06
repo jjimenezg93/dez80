@@ -53,3 +53,7 @@
 # 3.4.4 Move with keys + barrel collision
 
 ![move-with-keys-barrel-collision](./resources/move-with-keys-barrel-collision.gif)
+
+# Final game
+
+![challenge-game](./resources/challenge-game.gif)
