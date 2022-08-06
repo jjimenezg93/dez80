@@ -1,21 +1,22 @@
 org #4000
 run code_start
 
-move_animation_ticks            equ     3
+move_animation_ticks            equ     1
 animation_ticks                 equ     5
 left_wall_position              equ     #C3C0
 right_wall_position             equ     left_wall_position + #50
 next_pixel_offset_v             equ     #0800
+starting_position               equ     #C3E8   ;; Screen center
 
-is_game_over:                   db      1
+is_game_over:                   db      0
 reset_game_key:                 db      50      ;; R
 move_left_key:                  db      69      ;; A
 move_right_key:                 db      61      ;; D
 hit_key:                        db      47      ;; Space
 barrels_array:                  dw      #C3C8, #C3CC, #C3FC, #C400
 barrels_active:                 dw      1, 1, 1, 1
-current_character_position:     dw      #C3E8   ;; Screen center
-current_barrel_idx:             db      0
+current_character_position:     dw      starting_position
+current_barrel_ptr:             dw      barrels_array
 
 code_start:
 ld      HL, right_wall_position
@@ -27,24 +28,26 @@ draw_floor:
     jr      NZ, draw_floor
 
 ld      A, 4
-call    reset_current_barrel_idx
+call    reset_current_barrel_ptr
 draw_barrels:
     call    get_current_barrel_ptr
     call    draw_barrel
-    call    inc_current_barrel_idx
+    call    inc_current_barrel_ptr
     dec     A
     jr      NZ, draw_barrels
 
 ld      HL, (current_character_position)
 call    draw_character
-jr $
+
 main_loop:
+    ld      HL, (current_character_position)
     call    clear_sprite
     call    handle_input
     call    handle_collisions
     ld      A, (is_game_over)
     and     A
     jr      NZ, game_over
+    ld      HL, (current_character_position)
     call    draw_character
     ld      A, move_animation_ticks
     call    animation_wait
@@ -57,7 +60,10 @@ game_over:
     jr      game_over
 
 reset_game:
+    push    AF
     push    HL
+
+    ;; Re-activate all barrels
     ld      A, 4
     ld      HL, barrels_active
     reset_barrels_loop:
@@ -65,8 +71,20 @@ reset_game:
         inc     HL
         dec     A
         jr      NZ, reset_barrels_loop
-    
+
+    ;; Clear current character's position
+    ld      HL, (current_character_position)
+    call    clear_sprite
+
+    ;; Reset starting position
+    ld      HL, starting_position
+    ld      (current_character_position), HL
+
+    ld      A, 0
+    ld      (is_game_over), A
+
     pop     HL
+    pop     AF
     jr      code_start
 
 handle_input:
@@ -124,37 +142,35 @@ move_right:
 
 handle_collisions:
     push    DE
+
     ld      D, 4
-    call    reset_current_barrel_idx
+    call    reset_current_barrel_ptr
     handle_barrel_collisions_loop:
         call    is_current_barrel_active
         and     A
         jr      Z, skip_inactive_barrel
         call    handle_barrel_collision
         skip_inactive_barrel:
-            call    inc_current_barrel_idx
+            call    inc_current_barrel_ptr
             dec     D
             jr      NZ, handle_barrel_collisions_loop
 
     pop     DE
     ret
 
-; Returns the address of the current barrel in HL
+;; Returns the address of the current barrel in HL
 get_current_barrel_ptr:
     push    AF
-    ld      A, (current_barrel_idx)
-    inc     A
-    ld      HL, barrels_array - 1 ;; -1 compensates first inc inside loop
-    get_barrel_loop:
-        inc     HL
-        dec     A
-        jr      NZ, get_barrel_loop
     push    DE
-    ld      DE, (barrels_array)
-    ld      (barrels_array), HL
-    ld      HL, (barrels_array)
-    ld      (barrels_array), DE
+
+    ld      HL, (current_barrel_ptr)
+    ld      A, (HL)
+    ld      E, A
+    inc     HL
+    ld      A, (HL)
+    ld      D, A
     ex      DE, HL
+
     pop     DE
     pop     AF
     ret
@@ -162,30 +178,34 @@ get_current_barrel_ptr:
 ; Returns activation state in A (1 == active)
 is_current_barrel_active:
     push    HL
-    ld      A, (current_barrel_idx)
-    inc     A
-    ld      HL, barrels_active - 1 ;; -1 compensates first inc inside loop
-    active_barrel_loop:
-        inc     HL
-        dec     A
-        jr      NZ, active_barrel_loop
+    push    DE
+    ld      HL, barrels_active
+    ld      DE, barrels_array
+    call    reset_carry_flag
+    sbc     HL, DE                      ;; Calculate offset between both arrays
+    ex      DE, HL                      ;; Move the offset into DE
+    ld      HL, (current_barrel_ptr)
+    add     HL, DE                      ;; Add the offset. HL now pointing to
+                                        ;; active state of current barrel
     ld      A, (HL)
+    pop     DE
     pop     HL
     ret
 
-reset_current_barrel_idx:
-    push    AF
-    ld      A, 0
-    ld      (current_barrel_idx), A
-    pop     AF
+reset_current_barrel_ptr:
+    push    HL
+    ld      HL, barrels_array
+    ld      (current_barrel_ptr), HL
+    pop     HL
     ret
 
-inc_current_barrel_idx:
-    push    AF
-    ld      A, (current_barrel_idx)
-    inc     A
-    ld      (current_barrel_idx), A
-    pop     AF
+inc_current_barrel_ptr:
+    push    HL
+    ld      HL, (current_barrel_ptr)
+    inc     HL
+    inc     HL
+    ld      (current_barrel_ptr), HL
+    pop     HL
     ret
 
 handle_barrel_collision:
@@ -204,7 +224,7 @@ handle_barrel_collision:
     sbc     HL, BC
     ;; Right side && char pos - 1 <= barrel pos -> collision
     call    get_current_barrel_ptr
-    call    C, play_explosion_animation
+    call    NC, play_explosion_animation
     call    Z, play_explosion_animation
     jr      collision_end
     character_on_left:
@@ -241,9 +261,10 @@ reset_carry_flag:
 animation_wait:
     push    AF
 
-    halt
-    dec     A
-    jr      NZ, animation_wait
+    animation_wait_loop:
+        halt
+        dec     A
+        jr      NZ, animation_wait_loop
 
     pop     AF
     ret
