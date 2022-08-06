@@ -13,16 +13,16 @@ All of the code in this repository has been tested in [WinAPE](http://www.winape
 - Copy the machine code that you want to test.
 - Open the debugger window of WinApe.
 - Paste the code in the memory position `0x4000` (use `Ctrl+G` or `Right Click > Goto...`).
-- Change the value of the PC to the position where the code starts. By default this will be where you pasted the code in the previous step, but some programs store data at the beginning so their code will start in a higher position. The comments in each section (or a lot of `0`s in the middle of the machine code) should make it clear if this is the case.
+- Change the value of the PC to the position where the code starts. By default this will be where you pasted the code in the previous step, but some programs store data at the beginning so their code will start at a higher position. The comments in each section (or a lot of `0`s in the middle of the machine code) should make it clear if this is the case.
 - Close the debugger window and the program will execute.
+
+**NOTE**: Some of these machine code programs assume that executable instructions start at position `0x4000` and reference memory positions directly based on this assumption (e.g. to store data). This is for the sake of simplicity or complying with constraints for that specific challenge (e.g. use specific instruction).
 
 ## Level 3
 
 - Open the assembler window.
 - Open the `.asm` file.
 - Assemble and run (`Assemble > Run` or `F9`).
-
-**NOTE**: Some of these machine code programs assume that executable instructions start at position `0x4000` and reference memory positions directly based on this assumption (e.g. to store data). This is for the sake of simplicity or complying with constraints for that specific challenge (e.g. use specific instruction).
 
 # Links
 
